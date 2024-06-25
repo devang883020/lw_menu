@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="cmd">
+    </div>
+    <div id="content">
+
+    </div>
+    <div>
+        <button type="button" id="click" onclick="fetchContent()">Click me</button>
+    </div>
+
+</body>
+<script>
+    function fetchContent() {
+        const command = document.getElementById("cmd").value;
+        const url = `http://54.87.221.7/cgi-bin/main.py?query=${command}`;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    document.getElementById("content").innerHTML = xhr.responseText;
+                } else {
+                    console.log(xhr.response);
+                    document.getElementById("content").innerHTML = `Error: ${xhr.status}`;
+                }
+            }
+        };
+        xhr.onerror = function() {
+            document.getElementById("content").innerHTML = "Request failed.";
+        };
+        xhr.send();
+    }
+</script>
+</html>

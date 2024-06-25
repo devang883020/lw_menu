@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Launch AWS Instance</title>
+</head>
+<body>
+    <h1>Launch AWS Instance</h1>
+    <form action="/cgi-bin/launch_instance.py" method="post">
+        <label for="instanceType">Instance Type:</label>
+        <input type="text" id="instanceType" name="instanceType" placeholder="Enter Instance Type">
+        <br>
+        <label for="imageId">Image ID:</label>
+        <input type="text" id="imageId" name="imageId" placeholder="Enter Image ID">
+        <br>
+        <label for="aws_access_key">AWS Access Key:</label>
+        <input type="text" id="aws_access_key" name="aws_access_key" placeholder="Enter AWS Access Key">
+        <br>
+        <label for="aws_secret_key">AWS Secret Key:</label>
+        <input type="text" id="aws_secret_key" name="aws_secret_key" placeholder="Enter AWS Secret Key">
+        <br>
+        <label for="regionName">Region Name:</label>
+        <input type="text" id="regionName" name="regionName" placeholder="Enter Region Name">
+        <br>
+        <button type="submit">Launch</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var params = new URLSearchParams(formData);
+
+            fetch('/cgi-bin/launch_instance.py', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = JSON.stringify(data);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

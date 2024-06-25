@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Logs</title>
+</head>
+<body>
+    <h1>Get Logs</h1>
+    <form action="/cgi-bin/get_logs.py" method="post">
+        <label for="logGroupName">Log Group Name:</label>
+        <input type="text" id="logGroupName" name="logGroupName" placeholder="Enter Log Group Name">
+        <br>
+        <label for="logStreamName">Log Stream Name:</label>
+        <input type="text" id="logStreamName" name="logStreamName" placeholder="Enter Log Stream Name">
+        <br>
+        <label for="awsAccessKey">AWS Access Key:</label>
+        <input type="text" id="awsAccessKey" name="awsAccessKey" placeholder="Enter AWS Access Key">
+        <br>
+        <label for="awsSecretKey">AWS Secret Key:</label>
+        <input type="text" id="awsSecretKey" name="awsSecretKey" placeholder="Enter AWS Secret Key">
+        <br>
+        <label for="regionName">Region Name:</label>
+        <input type="text" id="regionName" name="regionName" placeholder="Enter Region Name">
+        <br>
+        <button type="submit">Get Logs</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var params = new URLSearchParams(formData);
+
+            fetch('/cgi-bin/get_logs.py', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').innerText = data;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Volume Control</title>
+</head>
+<body>
+  <h1>Volume Control</h1>
+  <form action="/cgi-bin/volume.cgi" method="post">
+    <label for="volume">Enter volume level (0-100):</label>
+    <input type="number" id="volume" name="volume" min="0" max="100">
+    <input type="submit" value="Set Volume">
+  </form>
+  <button onclick="location.href='/cgi-bin/volume.cgi?get_volume=true'">Get Current Volume</button>
+  <div id="result"></div>
+
+  <script>
+    function getVolume() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/cgi-bin/volume.cgi?get_volume=true", true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          document.getElementById("result").innerHTML = "Current volume: " + xhr.responseText;
+        }
+      };
+      xhr.send();
+    }
+  </script>
+</body>
+</html>

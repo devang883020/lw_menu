@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Search</title>
+    <link rel="icon" href="data:,">
+</head>
+<body>
+    <h2>Google Search</h2>
+    <input type="text" id="searchQuery" placeholder="Enter your search query">
+    <button id="searchBtn">Search</button>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById("searchBtn").addEventListener("click", function() {
+            var query = document.getElementById("searchQuery").value.trim();
+            if (query !== "") {
+                fetch('/cgi-bin/google_search.py?query=' + encodeURIComponent(query))
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    displayError('Failed to retrieve search results due to an error.');
+                });
+            } else {
+                displayError('Please enter a search query.');
+            }
+        });
+
+        function displayResults(results) {
+            var resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+            if (Array.isArray(results)) {
+                results.forEach(function(result, index) {
+                    var resultDiv = document.createElement("div");
+                    resultDiv.innerHTML = `
+                        <h3>Result ${index + 1}:</h3>
+                        <p>Title: ${result.title}</p>
+                        <p>Link: <a href="${result.link}" target="_blank">${result.link}</a></p>
+                        <p>Snippet: ${result.snippet}</p>
+                    `;
+                    resultsDiv.appendChild(resultDiv);
+                });
+            } else if (results.error) {
+                displayError(results.error);
+            } else {
+                displayError('Unexpected error: Invalid response format.');
+            }
+        }
+
+        function displayError(message) {
+            var resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = `<p style="color: red;">${message}</p>`;
+        }
+    </script>
+</body>
+</html>

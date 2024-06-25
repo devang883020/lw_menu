@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get EC2 Metrics</title>
+</head>
+<body>
+    <h1>Get EC2 Metrics</h1>
+    <form action="/cgi-bin/get_ec2_metrics.py" method="post">
+        <label for="instanceId">Instance ID:</label>
+        <input type="text" id="instanceId" name="instanceId" placeholder="Enter Instance ID">
+        <br>
+        <label for="awsAccessKey">AWS Access Key:</label>
+        <input type="text" id="awsAccessKey" name="awsAccessKey" placeholder="Enter AWS Access Key">
+        <br>
+        <label for="awsSecretKey">AWS Secret Key:</label>
+        <input type="text" id="awsSecretKey" name="awsSecretKey" placeholder="Enter AWS Secret Key">
+        <br>
+        <label for="regionName">Region Name:</label>
+        <input type="text" id="regionName" name="regionName" placeholder="Enter Region Name">
+        <br>
+        <button type="submit">Get Metrics</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(event.target);
+            var params = new URLSearchParams(formData);
+
+            fetch('/cgi-bin/get_ec2_metrics.py', {
+                method: 'POST',
+                body: params
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('result').innerText = data;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

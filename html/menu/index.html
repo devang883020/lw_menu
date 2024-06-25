@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to my Task page😁 </title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        button {
+            background-color: #FFA500; /* Orange */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #FF8C00; /* Darker Orange */
+            transform: scale(1.05);
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            .button-container {
+                grid-template-columns: 1fr;
+            }
+            button {
+                width: 80%;
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to MY Task Page</h1>
+    <div class="button-container">
+        <button onclick="goToGoogleSearch()">Go to Google Search</button>
+        <button onclick="sendBulkEmail()">Send Bulk Email</button>
+        <button onclick="geoCoordinates()">Geo Coordinates</button>
+        <button onclick="dockerfun()">MAAJHA DOCKER</button>
+        <button onclick="launchInstance()">Launch AWS Instance</button>
+        <button onclick="getLogs()">Get Logs</button>
+        <button onclick="getMetrics()">Get EC2 Metrics</button>
+        <button onclick="goToFileManagement()">File Management</button>
+        <button onclick="linuxWebUI()">Linux Terminal</button>
+        <button onclick="htmlInterpreter()">Live HTML Interpreter</button>
+        <button onclick="pythonSMS()">SMS through python</button>
+        <button onclick="speakPage()">Text to Speech</button>
+    </div>
+    <script>
+        function goToGoogleSearch() {
+            window.location.href = "google_search.html";
+        }
+        function sendBulkEmail() {
+            window.location.href = "send_bulk_email.html";
+        }
+        function geoCoordinates() {
+            window.location.href = "geo_coordinates.html";
+        }
+        function dockerfun() {
+            window.location.href = "docker.html";
+        }
+        function launchInstance() {
+            window.location.href = "launch_instance.html";
+        }
+        function getLogs() {
+            window.location.href = "get_logs.html";
+        }
+        function getMetrics() {
+            window.location.href = "get_ec2_metrics.html";
+        }
+        function goToFileManagement() {
+            window.location.href = "file_management.html";
+        }
+        function linuxWebUI() {
+            window.location.href = "linux.html";
+        }
+        function htmlInterpreter() {
+            window.location.href = "html_live_terminal.html";
+        }
+        function pythonSMS() {
+            window.location.href = "python_sms.html";
+        }
+        function speakPage() {
+            window.location.href = "speak.html";
+        }
+    </script>
+</body>
+</html>
+

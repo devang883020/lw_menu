@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Coordinates</title>
+</head>
+<body>
+    <h1>Get Coordinates</h1>
+    <form action="/cgi-bin/geo_coordinates.py" method="get">
+        <label for="location">Enter location:</label>
+        <input type="text" id="location" name="location">
+        <button type="submit">Get Coordinates</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var location = document.getElementById('location').value;
+            fetch('/cgi-bin/geo_coordinates.py?location=' + encodeURIComponent(location))
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = JSON.stringify(data);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
+
